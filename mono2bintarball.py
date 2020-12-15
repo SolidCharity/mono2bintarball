@@ -39,6 +39,12 @@ for line in f:
         print('  ' + installedfile)
         shutil.copy2(installedfile, directory)
 
+# copy aot cache as well
+os.system("cp -R /usr/lib/mono %s/usr/lib" % (outpath,))
+
+# copy config files as well
+os.system("mkdir -p %s/usr/etc/ && cp -R /etc/mono/ %s/usr/etc/" % (outpath,outpath,))
+
 tarfile=("%s/mono-%s.bin.tar.gz" % (Path.home(),mono_version,))
 os.system("tar -C %s -czf %s %s" % (os.path.dirname(outpath),tarfile,os.path.basename(outpath)))
 os.popen("ln -s %s %s/mono" % (outpath,Path.home(),))
